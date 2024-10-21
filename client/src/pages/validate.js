@@ -108,7 +108,6 @@ const Validate = () => {
   },[isLoggedIn]);
 
   useEffect(()=>{
-    console.log(localStorage.getItem('tokenD'));
     if(localStorage.getItem('tokenD')==null){
       navigate('/login',{replace:true})
     }

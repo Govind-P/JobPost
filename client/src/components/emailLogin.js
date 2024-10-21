@@ -61,7 +61,6 @@ const EmailLogin = () => {
       });
       const data=await res.json();
       if(data.success){
-        console.log(data.data)
         toast.success(data.message);
         navigate('/dashboard',{replace:true});
         setOtpEmail('');
