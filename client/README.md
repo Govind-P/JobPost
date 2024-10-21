@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Job Posting Board - Frontend (Client)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend of the Job Posting Board application, built with **React** . It allows recruiters to register, post jobs, and manage their listings. Candidates can  receive updates via email automation. The frontend interacts with the backend APIs and provides a user-friendly interface.
 
-## Available Scripts
+## Table of Contents
+- [Introduction](#introduction)
+- [Project Setup](#project-setup)
+- [Running Locally](#running-locally)
+- [Tech Stack](#tech-stack)
 
-In the project directory, you can run:
 
-### `npm start`
+## Introduction
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The Job Posting Board frontend is designed to allow users (recruiters) to interact seamlessly with the backend. Recruiters can log in via OTP (email or mobile) to post jobs. This part of the project handles the user interface (UI) and communicates with the backend API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Project Setup
 
-### `npm test`
+Follow these steps to get the frontend (client) up and running on your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the Job Posting Board Repository**:
+   First, clone the main repository that contains both frontend and backend code:
+   ```bash
+   git clone https://github.com/yourusername/JobPost.git
 
-### `npm run build`
+2. **Navigate to the client Directory: **:
+   Once you've cloned the repository, move to the client folder, where the frontend code resides:
+   ```bash
+   cd JobPost/client
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Install Dependencies:**:
+   Run the following command to install all necessary dependencies:
+   ```bash
+   npm install
+4. **Set Up Environment Variables:**:
+   Create a .env file in the client directory and add any environment variables, such as:
+   ```bash
+   REACT_APP_BACKEND_URL="your_backend_url"
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Run Locally:
+1. **Start the Development Server: **:
+   To start the React development server, run:
+   ```bash
+   npm start
+1. **Access the Application:**:
+   The frontend will be running on http://localhost:3000. Open this URL in your browser to view the application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Tech Stack
+1. **React.js:** For building the user interface and handling routing.
+2. **Tailwind CSS:** For styling the application.
+3. **Fetch API:** For making HTTP requests to the backend.
+4. **JWT :** For handling authentication tokens .
