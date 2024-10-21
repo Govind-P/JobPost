@@ -6,7 +6,6 @@ This is the backend for the Job Posting Board application, built with **Node.js*
 - [Project Setup](#project-setup)
 - [Running Locally](#running-locally)
 - [API Endpoints](#api-endpoints)
-- [Project Structure](#project-structure)
 - [Tech Stack](#tech-stack)
 
 
@@ -68,20 +67,6 @@ Once the setup is complete, you can run the backend on your local machine:
 8. POST /api/jobpost :Post job
 6. GET /api/getjobs : Get posted job by recruiter
 10. GET /api/logout : Logout
-
-
-## Project Structure
-The backend code is organized into the following structure:
-
-/backend
-│
-├── /controllers         # Business logic and API handlers
-├── /models              # MongoDB models (recruiter, Job, OTP)
-├── /routes              # API routes 
-├── /services            # Nodemailer and Twilio service integration
-├── /middlewares         # Middleware for authentication and error handling
-├── .env                 # Environment variables
-└── README.md            # Project documentation
 
 
 ## Tech Stack
