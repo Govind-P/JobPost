@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import backendApi from '../common/backendApi.js';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
+import Loading from '../components/loading.js';
 
 
 //icons
@@ -13,6 +14,7 @@ import { PiUsersThreeLight } from "react-icons/pi";
 import { FiPhone } from "react-icons/fi";
 
 const SignUp = () => {
+  const [isLoading,setLoading] = useState(false);
   const isLoggedIn = useSelector((state) => state.recruiter.isLoggedIn);
   const navigate = useNavigate();
   const [details,setDetails] =useState({
@@ -29,6 +31,7 @@ const SignUp = () => {
   }
 
   const handleSubmit =async (e) => {
+    setLoading(true);
     e.preventDefault();
     const res=await fetch(backendApi.signup.url,{
       method: backendApi.signup.method,
@@ -40,9 +43,11 @@ const SignUp = () => {
     if(data.success){
       toast.success(data.message);
       localStorage.setItem('tokenD', data.data);
-      navigate('/validate',{replace:true});
+      setLoading(false);
+      navigate('/validate',{replace:true});  
     }
     else{
+      setLoading(false);
       toast.error(data.message);
     } 
   }
@@ -55,6 +60,13 @@ const SignUp = () => {
 
   return (
     <div className='container mx-auto w-screen min-h-screen h-full pt-20 lg:pt-16'>
+       {
+          isLoading && (
+            <div className="fixed inset-0 z-50 flex items-center opacity-80 bg-slate-500 justify-center  bg-opacity-75">
+              <Loading /> 
+            </div>
+          )
+      }
         <div className='flex h-full flex-col lg:flex-row items-center justify-center gap-3 '>
             <div className='h-fit lg:h-full  text-center lg:w-1/2 w-full flex items-center justify-center'>
                 <div className='h-fit text-lg font-serif text-blue-950'>

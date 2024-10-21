@@ -18,18 +18,9 @@ const Dashboard = () => {
     }
   },[isLoggedIn,navigate]);
 
-  useEffect(()=>{
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  },[]);
 
   return (
     <div className='w-screen h-screen pt-20 lg:pt-16 flex items-start justify-start'>
-        {
-          isLoading && (<Loading/>)
-        }
         <div className='fixed lg:top-16 top-20  h-full shadow-md w-12 bg-slate-200'>
             <div className='z-5 flex flex-col items-center justify-center gap-5 pt-6 text-gray-500'>
                 <Link to={''}><IoMdHome size={24} className='text-2xl cursor-pointer hover:text-gray-700' title='Home'/></Link>

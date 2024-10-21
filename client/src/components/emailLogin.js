@@ -3,6 +3,7 @@ import backendApi from '../common/backendApi.js';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Context from '../context/index.js';
+import Loading from '../components/loading.js';
 
 
 
@@ -11,6 +12,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const EmailLogin = () => {
+    const [isLoading,setLoading] = useState(false);
     const navigate = useNavigate();
     const [email,setEmail] = useState('');
     const[otpEmail,setOtpEmail] =useState('')
@@ -26,6 +28,7 @@ const EmailLogin = () => {
     }
     const handleSubmitEmail =async (e) => {
         e.preventDefault();
+        setLoading(true);
         const res=await fetch(backendApi.loginEmail.url,{
         method: backendApi.loginEmail.method,
         headers: {'Content-Type': 'application/json'},
@@ -34,6 +37,7 @@ const EmailLogin = () => {
         })
         });
         const data=await res.json();
+        setLoading(false);
         if(data.success){
           toast.success(data.message);
           setEmailV(true);
@@ -45,6 +49,7 @@ const EmailLogin = () => {
     }
     const handleSubmitEmailOTP =async (e) => {
       e.preventDefault();
+      setLoading(true);
       const res=await fetch(backendApi.loginEmailOtp.url,{
       method: backendApi.loginEmailOtp.method,
       headers: {'Content-Type': 'application/json'},
@@ -63,8 +68,10 @@ const EmailLogin = () => {
         setEmail('');
         fetchRecruiterData();
         localStorage.setItem('token', data.data);
+        setLoading(false)
       }
       else{
+        setLoading(false)
         toast.error(data.message);
       } 
   }
@@ -72,10 +79,17 @@ const EmailLogin = () => {
 
   return (
     <div className=' w-full h-fit'>
-    <form className='flex  flex-col w-full h-fit items-center justify-center gap-2 '
+       {
+          isLoading && (
+            <div className="fixed inset-0 z-50 flex items-center opacity-90 bg-slate-200 justify-center  bg-opacity-75">
+              <Loading /> 
+            </div>
+          )
+      }
+    <form className='flex relative flex-col w-full h-fit items-center justify-center gap-2 z-10'
     onSubmit={handleSubmitEmail}>
       <div className='w-full relative'>
-        <input type='email' placeholder='Email' className='border-2 border-gray-300 rounded-lg p-2 pl-10 w-full focus:outline-blue-600 appearance-none'
+        <input type='email' placeholder='Email' className='border-2 border-gray-300 rounded-lg p-2 pl-10 w-full focus:outline-blue-600 appearance-none '
         required
         name='email'
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -95,7 +109,7 @@ const EmailLogin = () => {
         <span className="absolute inset-0 bg-blue-500 transition-all duration-500 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-left z-0"></span>
         <span className={`absolute inset-0 bg-blue-500 transition-none lg:hidden ${otpSend && 'bg-slate-400'}`}></span>
             {
-            otpSend ? (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Please Check Mobile</div>):
+            otpSend ? (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Please Check Mail</div>):
             (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Send OTP</div>)
           }
         </button>

@@ -3,12 +3,14 @@ import backendApi from '../common/backendApi.js';
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Context from '../context/index.js';
+import Loading from '../components/loading.js';
 
 //icons
 import { FiPhone } from "react-icons/fi";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const MobileLogin = () => {
+  const [isLoading,setLoading] = useState(false);
   const navigate = useNavigate();
   const [mobile,setMobile] = useState('');
   const[otpMobile,setOtpMobile] =useState('')
@@ -24,6 +26,7 @@ const MobileLogin = () => {
   }
   const handleSubmitMobile =async (e) => {
       e.preventDefault();
+      setLoading(true);
       const res=await fetch(backendApi.loginMobile.url,{
       method: backendApi.loginMobile.method,
       headers: {'Content-Type': 'application/json'},
@@ -32,6 +35,7 @@ const MobileLogin = () => {
       })
       });
       const data=await res.json();
+      setLoading(false);
       if(data.success){
       toast.success(data.message);
       setMobileV(true);
@@ -43,6 +47,7 @@ const MobileLogin = () => {
   }
   const handleSubmitMobileOTP =async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res=await fetch(backendApi.loginMobileOtp.url,{
     method: backendApi.loginMobileOtp.method,
     headers: {'Content-Type': 'application/json'},
@@ -60,8 +65,10 @@ const MobileLogin = () => {
       setMobile('');
       fetchRecruiterData();
       localStorage.setItem('token', data.data);
+      setLoading(false);
     }
     else{
+      setLoading(false);
       toast.error(data.message);
     } 
 }
@@ -69,6 +76,13 @@ const MobileLogin = () => {
 
 return (
   <div className=' w-full h-fit'>
+    {
+          isLoading && (
+            <div className="fixed inset-0 z-50 flex items-center opacity-80 bg-slate-500 justify-center  bg-opacity-75">
+              <Loading /> 
+            </div>
+          )
+      }
   <form className='flex  flex-col w-full h-fit items-center justify-center gap-2 '
   onSubmit={handleSubmitMobile}>
     <div className='w-full relative'>

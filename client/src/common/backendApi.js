@@ -46,6 +46,10 @@ const backendApi={
     jobPost:{
         url:`${backend}/jobpost`,
         method:'POST',
+    },
+    getJob:{
+        url:`${backend}/getJobs`,
+        method:'GET',
     }
     
 }

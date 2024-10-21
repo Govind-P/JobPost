@@ -9,7 +9,7 @@ import { loginEmail, loginMobile, loginOtpMobile,loginOtpEmail  } from '../contr
 import { tokenValidation } from '../middleware/tokenValidation.js';
 import { userDetails } from '../controller/userDetails.js';
 import { Logout } from '../controller/logout.js';
-import { postJob } from '../controller/postJob.js';
+import { getJobs, postJob } from '../controller/postJob.js';
 
 const router=express.Router();
 
@@ -26,6 +26,7 @@ router.get('/resendEmail',verifyToken,resendEmail);
 router.get('/proceedDashboard',verifyToken,proceedDashboard);
 router.get('/userDetails',tokenValidation,userDetails);
 router.post('/jobpost',tokenValidation,postJob);
+router.get('/getjobs',tokenValidation,getJobs);
 router.get('/logout',tokenValidation,Logout);
 
 export default router;

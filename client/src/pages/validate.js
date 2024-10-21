@@ -4,6 +4,7 @@ import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Context from '../context/index.js';
 import { useContext } from 'react';
+import Loading from '../components/loading.js';
 
 //icons
 import { MdOutlineMailOutline } from "react-icons/md";
@@ -12,6 +13,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useSelector } from 'react-redux';
 
 const Validate = () => {
+  const [isLoading,setLoading] = useState(false);
   const isLoggedIn=useSelector(state=>state.recruiter.isLoggedIn);
   const navigate = useNavigate();
   const[otpEmail,setOtpEmail] =useState('')
@@ -30,6 +32,7 @@ const Validate = () => {
   }
 
   const handleSubmitMobile =async (e) => {
+    setLoading(true);
     e.preventDefault();
     const res=await fetch(backendApi.validateMobile.url,{
       method: backendApi.validateMobile.method,
@@ -40,16 +43,19 @@ const Validate = () => {
       })
     });
     const data=await res.json();
+    setLoading(false);
     if(data.success){
       toast.success(data.message);
-      setOtpMobile('');
       setMobileV(true);
     }
     else{
       toast.error(data.message);
     } 
+    setOtpMobile('');
   }
+
   const handleSubmitEmail =async (e) => {
+    setLoading(true);
     e.preventDefault();
     const res=await fetch(backendApi.validateEmail.url,{
       method: backendApi.validateEmail.method,
@@ -60,17 +66,19 @@ const Validate = () => {
       })
     });
     const data=await res.json();
+    setLoading(false);
     if(data.success){
       toast.success(data.message);
-      setOtpEmail('');
       setEmailV(true);
     }
     else{
       toast.error(data.message);
-    } 
+    }
+    setOtpEmail(''); 
   }
 
-  const handleSubmit=async()=>{  
+  const handleSubmit=async()=>{
+    setLoading(true);  
     if(emailV && mobileV){
       const res=await fetch(backendApi.proceedDashboard.url,{
         method: backendApi.proceedDashboard.method,
@@ -83,11 +91,13 @@ const Validate = () => {
         localStorage.removeItem('tokenD');
         localStorage.setItem('token',data.data);
         fetchRecruiterData();
+        setLoading(false);
+        navigate('/dashboard',{replace:true});
       }
       else{
+        setLoading(false);
         toast.error(data.message);
       } 
-      navigate('/dashboard',{replace:true});
     }
   }
 
@@ -108,6 +118,13 @@ const Validate = () => {
   useEffect(() => {},[]);
   return (
     <div className='container mx-auto w-screen min-h-screen h-full pt-20 lg:pt-16'>
+      {
+          isLoading && (
+            <div className="fixed inset-0 z-50 flex items-center opacity-80 bg-slate-500 justify-center  bg-opacity-75">
+              <Loading /> 
+            </div>
+          )
+      }
         <div className='flex h-full flex-col lg:flex-row items-center justify-center gap-3 '>
             <div className='h-fit lg:h-full  text-center lg:w-1/2 w-full flex items-center justify-center'>
                 <div className='h-fit text-lg font-serif text-blue-950'>

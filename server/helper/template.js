@@ -1,3 +1,4 @@
+import moment from "moment";
 export const otpTemplate=(otp)=>{
     return (`
     <html lang="en">
@@ -63,6 +64,7 @@ export const otpTemplate=(otp)=>{
 
 
 export const jobTemplate=(details,company)=>{
+    const date=moment(details.endDate).format('YYYY-MM-DD HH:mm:ss');
     return (
         `
         <!DOCTYPE html>
@@ -143,7 +145,7 @@ export const jobTemplate=(details,company)=>{
 
                 <div class="section">
                     <h3>End Date:</h3>
-                    <p>${details.endDate}</p>
+                    <p>${date}</p>
                 </div>
 
                 <!-- Best Regards Section -->

@@ -3,20 +3,13 @@ import EmailLogin from '../components/emailLogin.js';
 import MobileLogin from '../components/mobileLogin.js';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Loading from '../components/loading.js';
 
 
 const Login = () => {
-  const [isLoading,setLoading] = useState(false);
   const [select,setSelect] =useState(false);
   const isLoggedIn= useSelector(state=>state.recruiter.isLoggedIn);
   const navigate = useNavigate();
-  useEffect(()=>{
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  },[]);
+  
   useEffect(()=>{
     if(isLoggedIn){
       navigate('/dashboard',{replace:true});
@@ -24,9 +17,6 @@ const Login = () => {
   },[isLoggedIn,navigate]);
   return (
     <div className='container mx-auto w-screen min-h-screen h-full pt-20 lg:pt-16 overflow-y-auto'>
-        {
-          isLoading && (<Loading/>)
-        }
         <div className='flex h-full flex-col lg:flex-row items-center justify-center gap-3 '>
             <div className='h-1/4 lg:h-full  text-center lg:w-1/2 w-full flex items-center justify-center '>
                 <div className='h-fit text-lg font-serif text-blue-950 px-3'>

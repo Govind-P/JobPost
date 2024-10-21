@@ -26,3 +26,25 @@ export const postJob=async (req,res)=>{
         });
     }
 }
+
+
+export const getJobs=async (req,res)=>{
+    try{
+        const {id}=req.decoded;
+        const details=await jobModel.find({recruiter:id});
+
+        res.status(201).json({
+            message: "All Interview fetched successfully",
+            data: details,
+            success: true,
+            error: false
+        });
+
+    }catch(err){
+        res.status(500).json({
+            message: err.message,
+            error: true,
+            success: false
+        });
+    }
+}
