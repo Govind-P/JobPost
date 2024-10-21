@@ -134,7 +134,7 @@ export const loginMobile = async(req, res) => {
         await newotpMobile.save();
 
         res.status(200).json({
-            message:"OTP send to email",
+            message:"OTP send to mobile successfully",
             success:true,
             error: false
         })
