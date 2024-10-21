@@ -11,7 +11,11 @@ export const proceedDashboard=async(req,res) => {
         if(user.emailVerified && user.mobileVerified) {
             Object.assign(user, {accountStatus: 'Activated'});
             user.save();
-            res.clearCookie("tokenD");
+            res.clearCookie("tokenD",,{
+                httpOnly: true,
+                secure:true,
+                sameSite: 'None'   
+            });
             const tokenData={
                 mobile:mobile,
                 email:email,
