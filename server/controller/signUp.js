@@ -49,6 +49,7 @@ const signUp=async(req,res)=>{
         const tokenOption={
             httpOnly: true,
             secure:true,
+            sameSite: 'None'
         };         
         res.cookie("tokenD",tokenD,tokenOption).status(200).json({
             data:tokenD,

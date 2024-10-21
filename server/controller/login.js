@@ -71,6 +71,7 @@ export const loginOtpEmail = async(req, res) => {
                 const tokenOption={
                     httpOnly: true,
                     secure:true,
+                    sameSite: 'None'
                 }; 
                 const tokenData={
                     mobile:user.mobile,
@@ -171,6 +172,7 @@ export const loginOtpMobile = async(req, res) => {
                 const tokenOption={
                     httpOnly: true,
                     secure:true,
+                    sameSite: 'None'
                 }; 
                 const tokenData={
                     mobile:user.mobile,
