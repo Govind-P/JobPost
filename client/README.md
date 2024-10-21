@@ -22,3 +22,22 @@ Follow these steps to get the frontend (client) up and running on your local mac
    First, clone the main repository that contains both frontend and backend code:
    ```bash
    git clone https://github.com/yourusername/JobPost.git
+
+2. **Navigate to the client Directory: **:
+   Once you've cloned the repository, move to the client folder, where the frontend code resides:
+   ```bash
+   cd JobPost/client
+
+3. **Install Dependencies:**:
+   Run the following command to install all necessary dependencies:
+   ```bash
+   npm install
+
+   
+## Run Locally:
+1. **Start the Development Server: **:
+   To start the React development server, run:
+   ```bash
+   npm start
+1. **Access the Application:**:
+   The frontend will be running on http://localhost:3000. Open this URL in your browser to view the application.
