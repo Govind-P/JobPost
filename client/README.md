@@ -1,6 +1,6 @@
 # Job Posting Board - Frontend (Client)
 
-This is the frontend of the Job Posting Board application, built with **React** (or **Next.js**, depending on your stack). It allows recruiters to register, post jobs, and manage their listings. Candidates can view job posts and receive updates via email automation. The frontend interacts with the backend APIs and provides a user-friendly interface.
+This is the frontend of the Job Posting Board application, built with **React** . It allows recruiters to register, post jobs, and manage their listings. Candidates can  receive updates via email automation. The frontend interacts with the backend APIs and provides a user-friendly interface.
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -11,7 +11,7 @@ This is the frontend of the Job Posting Board application, built with **React** 
 
 ## Introduction
 
-The Job Posting Board frontend is designed to allow users (recruiters and candidates) to interact seamlessly with the backend. Recruiters can log in via OTP (email or mobile) to post jobs, while candidates can view and filter job listings. This part of the project handles the user interface (UI) and communicates with the backend API.
+The Job Posting Board frontend is designed to allow users (recruiters) to interact seamlessly with the backend. Recruiters can log in via OTP (email or mobile) to post jobs. This part of the project handles the user interface (UI) and communicates with the backend API.
 
 ## Project Setup
 
@@ -31,6 +31,12 @@ Follow these steps to get the frontend (client) up and running on your local mac
    Run the following command to install all necessary dependencies:
    ```bash
    npm install
+4. **Set Up Environment Variables:**:
+   Create a .env file in the client directory and add any environment variables, such as:
+   ```bash
+   REACT_APP_BACKEND_URL="your_backend_url"
+
+    
 
    
 ## Run Locally:
