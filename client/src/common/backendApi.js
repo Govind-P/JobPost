@@ -1,6 +1,6 @@
 
 
-const backend=process.env.REACT_APP_BACKEND_URL
+const backend="https://jobpost-mjo4.onrender.com/api"
 
 const backendApi={
     loginEmail:{
