@@ -36,9 +36,6 @@ Follow these steps to get the frontend (client) up and running on your local mac
    ```bash
    REACT_APP_BACKEND_URL="your_backend_url"
 
-    
-
-   
 ## Run Locally:
 1. **Start the Development Server: **:
    To start the React development server, run:
