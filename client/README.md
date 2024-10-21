@@ -45,7 +45,7 @@ Follow these steps to get the frontend (client) up and running on your local mac
    The frontend will be running on http://localhost:3000. Open this URL in your browser to view the application.
 
 ## Tech Stack
-1.React.js: For building the user interface and handling routing.
-2.Tailwind CSS: For styling the application.
-3.Fetch API: For making HTTP requests to the backend.
-4.JWT : For handling authentication tokens .
+1. **React.js:** For building the user interface and handling routing.
+2. **Tailwind CSS:** For styling the application.
+3. **Fetch API:** For making HTTP requests to the backend.
+4. **JWT :** For handling authentication tokens .
