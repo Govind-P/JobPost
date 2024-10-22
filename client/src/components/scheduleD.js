@@ -62,7 +62,7 @@ const ScheduleD = () => {
               <h2 className='text-xl font-bold mb-2 text-blue-500'>{card.title}</h2>
               <p className='line-clamp-2 mb-2'>{card.description}</p>  {/* Clamps the description to 2 lines */}
               <div>
-                <p className='font-semibold'>Role: <span className='font-normal'>{card.role}</span></p>
+                <p className='font-semibold'>Role: <span className='font-normal'>{card.title}</span></p>
                 <p className='font-semibold'>End Date: <span className='font-normal'>{moment(card.endDate).format('YYYY-MM-DD HH:mm:ss')}</span></p>
                 <p className='font-semibold'>Experience: <span className='font-normal'>{card.experience}</span></p>
               </div>

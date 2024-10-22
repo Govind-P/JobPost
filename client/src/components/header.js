@@ -42,7 +42,7 @@ const Header = () => {
         }
       }
   return (
-    <div className='fixed w-screen h-20 lg:h-16  rounded-md bg-white shadow-md z-50'>
+    <div className='fixed w-screen h-16 lg:h-16  rounded-md bg-white shadow-md z-50'>
         <div className=' flex items-center justify-between h-full w-full px-7 lg:px-10'>
             <Link to={'/'} className='h-fit px-3 py-2 w-fit' >
             <img src={'/cuvetteLogo.png'} alt={'Logo'} width={90} height={30}/>
@@ -60,7 +60,7 @@ const Header = () => {
                         <div className='absolute right-0  lg:top-14 top-10 w-30 md:w-40 bg-inherit  rounded-md  flex flex-col items-start justify-start gap-2 '>
                             <div className='rounded-md shadow-md w-full px-3 py-2 bg-slate-200 flex items-center justify-start gap-2'>
                                 <CgProfile className='text-xl '/>
-                                <Link className='h-fit w-full text-lg md:text-lg font-normal ' to={'profile'}>Profile</Link>
+                                <Link className='h-fit w-full text-lg md:text-lg font-normal ' to={'/dashboard/profile'}>Profile</Link>
                             </div>
                             <div className='cursor-pointer rounded-md shadow-md w-full px-3 py-2 bg-slate-200 flex items-center justify-start gap-2'
                             onClick={handleLogout}>

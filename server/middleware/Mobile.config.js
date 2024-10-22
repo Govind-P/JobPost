@@ -12,7 +12,6 @@ export const sendMobile = async (otp) => {
             messagingServiceSid: process.env.TWILIO_SERVICESID,
             to: "+917025921551"
         });
-        console.log(info)
     } catch (error) {
         console.log(error);
     }

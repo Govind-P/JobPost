@@ -13,11 +13,14 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const EmailLogin = () => {
     const [isLoading,setLoading] = useState(false);
+    const [seconds, setSeconds] = useState(60);
     const navigate = useNavigate();
     const [email,setEmail] = useState('');
     const[otpEmail,setOtpEmail] =useState('')
     const [emailV,setEmailV] =useState(false);
-    const [otpSend,setOtpSend] = useState(false);
+    const [otpSend,setOtpSend] = useState(false); 
+    const [resendOTP,setResendOTP] = useState(true);
+    const [count,setCount] = useState(1);
     const {fetchRecruiterData}=useContext(Context);
 
     const handleOtpEmail = (e) => {
@@ -33,12 +36,16 @@ const EmailLogin = () => {
         method: backendApi.loginEmail.method,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            email: email
+            email: email,
+            count: count
         })
         });
         const data=await res.json();
         setLoading(false);
         if(data.success){
+          setCount(prevCount=>prevCount+1);
+          setResendOTP(false);
+          setSeconds(60);
           toast.success(data.message);
           setEmailV(true);
           setOtpSend(true);
@@ -76,6 +83,22 @@ const EmailLogin = () => {
   }
 
 
+  //timer
+  useEffect(() => {
+    if (seconds > 0) {
+      const timerId = setInterval(() => {
+        setSeconds(prevSeconds => {
+          if (prevSeconds === 1) {
+            setResendOTP(true); 
+          }
+          return prevSeconds - 1;
+        });
+      }, 1000); 
+      return () => clearInterval(timerId);
+    }
+  }, [seconds, setResendOTP]);
+
+
   return (
     <div className=' w-full h-fit'>
        {
@@ -91,6 +114,7 @@ const EmailLogin = () => {
         <input type='email' placeholder='Email' className='border-2 border-gray-300 rounded-lg p-2 pl-10 w-full focus:outline-blue-600 appearance-none '
         required
         name='email'
+        disabled={emailV}
         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
         title="Please enter a valid email address."
         value={email}
@@ -104,16 +128,19 @@ const EmailLogin = () => {
       </div>            
       <div className='w-full pt-2 '>
       <button type='submit' 
-        className={`relative w-full ${emailV && 'pointer-events-none border-gray-600'}  overflow-hidden flex items-center justify-center text-white rounded-md text-center px-5 py-2 border border-blue-500 gap-1 group cursor-pointer`}>
+        className={`relative w-full ${emailV && !resendOTP && 'pointer-events-none border-gray-600'}  overflow-hidden flex items-center justify-center text-white rounded-md text-center px-5 py-2 border border-blue-500 gap-1 group cursor-pointer`}>
         <span className="absolute inset-0 bg-blue-500 transition-all duration-500 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-left z-0"></span>
-        <span className={`absolute inset-0 bg-blue-500 transition-none lg:hidden ${otpSend && 'bg-slate-400'}`}></span>
+        <span className={`absolute inset-0 bg-blue-500 transition-none lg:hidden ${otpSend && !resendOTP && 'bg-slate-400'}`}></span>
             {
-            otpSend ? (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Please Check Mail</div>):
+            otpSend && !resendOTP ? (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Please Check Mail</div>):
             (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Send OTP</div>)
           }
         </button>
       </div>
      </form>
+     {emailV && !resendOTP && <div className={`pt-2 w-full flex items-center text-xs font-semibold justify-center text-gray-700`}>
+          <div>Resend OTP in <span>{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</span></div>
+     </div>}
      <form className='flex pt-5 flex-col w-full h-fit items-center justify-center gap-2 '
     onSubmit={handleSubmitEmailOTP}>
       <div className='w-full relative'>

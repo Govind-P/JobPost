@@ -7,6 +7,7 @@ import Validate from "../pages/validate.js";
 import Dashboard from "../pages/dashboard.js";
 import HomeD from "../components/homeD.js";
 import ScheduleD from "../components/scheduleD.js";
+import Profile from "../pages/profile.js";
 
 
 
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
                     {
                         path:"schedules",
                         element:<ScheduleD/>
+                    },
+                    {
+                        path:"profile",
+                        element:<Profile/>
                     }
                 ]
             },

@@ -71,9 +71,9 @@ const JobPost = ({onClose}) => {
 
   return (
     <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center'>
-    <div className='container w-3/4 md:w-2/3  md:max-h-4/5 h-fit max-h-3/4 flex flex-col items-end justify-start rounded-xl md:p-4 bg-slate-100 overflow-y-auto pb-4'>
+    <div className='container w-3/4 md:w-2/3  md:max-h-4/5 h-3/4  flex flex-col items-end justify-start rounded-xl md:p-4 bg-slate-100 overflow-y-auto pb-4'>
         <div className='p-1 opacity-75'>
-            <MdOutlineClose className='text-3xl cursor-pointer hover:text-blue-500 hover:rotate-90 duration-700 transition-all' 
+            <MdOutlineClose className='text-3xl cursor-pointer hover:text-blue-500 hover:rotate-90 duration-300 transition-all' 
             onClick={onClose}/>
         </div>
         <form className='h-full w-full flex flex-col gap-4 justify-start px-4 py-3 scrollbar-thin scrollbar-thumb-blue-500 scrollbar-track-gray-200 overflow-y-auto'

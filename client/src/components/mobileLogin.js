@@ -17,6 +17,9 @@ const MobileLogin = () => {
   const [otpSend,setOtpSend] = useState(false);
   const [mobileV,setMobileV] =useState(false);
   const {fetchRecruiterData}=useContext(Context);
+  const [resendOTP,setResendOTP] = useState(true);
+  const [count,setCount] = useState(1);
+  const [seconds, setSeconds] = useState(60);
 
   const handleOtpMobile = (e) => {
       setOtpMobile(e.target.value);
@@ -31,18 +34,22 @@ const MobileLogin = () => {
       method: backendApi.loginMobile.method,
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-          mobile: mobile
+          mobile: mobile,
+          count: count
       })
       });
       const data=await res.json();
       setLoading(false);
       if(data.success){
-      toast.success(data.message);
-      setMobileV(true);
-      setOtpSend(true);
+        setCount(prevCount=>prevCount+1);
+        setResendOTP(false);
+        setSeconds(60);
+        toast.success(data.message);
+        setMobileV(true);
+        setOtpSend(true);
       }
       else{
-      toast.error(data.message);
+        toast.error(data.message);
       } 
   }
   const handleSubmitMobileOTP =async (e) => {
@@ -74,6 +81,22 @@ const MobileLogin = () => {
 }
 
 
+//timer
+useEffect(() => {
+  if (seconds > 0) {
+    const timerId = setInterval(() => {
+      setSeconds(prevSeconds => {
+        if (prevSeconds === 1) {
+          setResendOTP(true); 
+        }
+        return prevSeconds - 1;
+      });
+    }, 1000); 
+    return () => clearInterval(timerId);
+  }
+}, [seconds, setResendOTP]);
+
+
 return (
   <div className=' w-full h-fit'>
     {
@@ -89,6 +112,7 @@ return (
       <input type='tel' placeholder='Mobile' className='border-2 border-gray-300 rounded-lg p-2 pl-10 w-full focus:outline-blue-600 appearance-none'
       required
       name='mobile'
+      disabled={mobileV}
       pattern="[5-9]{1}[0-9]{9}"
       title="Please enter a valid mobile."
       value={mobile}
@@ -102,16 +126,19 @@ return (
     </div>            
     <div className='w-full pt-2 '>
     <button type='submit' 
-      className={`relative w-full ${mobileV && 'pointer-events-none border-gray-600'}  overflow-hidden flex items-center justify-center text-white rounded-md text-center px-5 py-2 border border-blue-500 gap-1 group cursor-pointer`}>
+      className={`relative w-full ${mobileV && !resendOTP && 'pointer-events-none border-gray-600'}  overflow-hidden flex items-center justify-center text-white rounded-md text-center px-5 py-2 border border-blue-500 gap-1 group cursor-pointer`}>
       <span className="absolute inset-0 bg-blue-500 transition-all duration-500 ease-in-out transform scale-x-0 group-hover:scale-x-100 origin-left z-0"></span>
       <span className={`absolute inset-0 bg-blue-500 transition-none lg:hidden ${otpSend && 'bg-slate-400'}`}></span>
       {
-        otpSend ? (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Check Mobile</div>):
+        otpSend && !resendOTP ? (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Check Mobile</div>):
         (<div className='relative z-10 group-hover:text-white md:text-gray-900 text-white transition-all duration-300'>Send OTP</div>)
       }
       </button>
     </div>
    </form>
+   {mobileV && !resendOTP && <div className={`pt-2 w-full flex items-center text-xs font-semibold justify-center text-gray-700`}>
+          <div>Resend OTP in <span>{Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, '0')}</span></div>
+     </div>}
    <form className='flex pt-5 flex-col w-full h-fit items-center justify-center gap-2 '
   onSubmit={handleSubmitMobileOTP}>
     <div className='w-full relative'>

@@ -7,16 +7,17 @@ import jwt from 'jsonwebtoken';
 
 export const loginEmail = async(req, res) => {
     try{
-        const { email} = req.body;
-        const user=await recruiterModel.findOne({ email: email });
-        if(!user){
-            throw new Error("User not found");
+        const { email,count} = req.body;
+        if(count==1){
+            const user=await recruiterModel.findOne({ email: email });
+            if(!user){
+                throw new Error("User not found");
+            }
+            //handle if email and mobile is not verified
+            if(!user.emailVerified || !user.mobileVerified){
+                throw new Error("Email and mobile verification is required");
+            }
         }
-        //handle if email and mobile is not verified
-        if(!user.emailVerified || !user.mobileVerified){
-            throw new Error("Email and mobile verification is required");
-        }
-
         //otp send
         const otpemail = String(Math.floor(100000 + Math.random() * 900000));
         const expirationTime = Date.now() + 10 * 60 * 1000;
@@ -109,16 +110,20 @@ export const loginOtpEmail = async(req, res) => {
 
 export const loginMobile = async(req, res) => {
     try{
-        const { mobile} = req.body;
-        const user=await recruiterModel.findOne({ mobile: mobile });
-        if(!user){
-            throw new Error("User not found");
+        const { mobile,count} = req.body;
+        console.log(count)
+        if( count==1){
+            console.log("first login")
+            const user=await recruiterModel.findOne({ mobile: mobile });
+            if(!user){
+                throw new Error("User not found");
+            }
+            //handle if email and mobile is not verified
+            if(!user.emailVerified || !user.mobileVerified){
+                throw new Error("Email and mobile verification is required");
+            }
         }
-        //handle if email and mobile is not verified
-        if(!user.emailVerified || !user.mobileVerified){
-            throw new Error("Email and mobile verification is required");
-        }
-
+        
         //otp send
         const otpmobile = String(Math.floor(100000 + Math.random() * 900000));
         const expirationTime = Date.now() + 10 * 60 * 1000;
