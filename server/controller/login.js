@@ -111,9 +111,7 @@ export const loginOtpEmail = async(req, res) => {
 export const loginMobile = async(req, res) => {
     try{
         const { mobile,count} = req.body;
-        console.log(count)
         if( count==1){
-            console.log("first login")
             const user=await recruiterModel.findOne({ mobile: mobile });
             if(!user){
                 throw new Error("User not found");
